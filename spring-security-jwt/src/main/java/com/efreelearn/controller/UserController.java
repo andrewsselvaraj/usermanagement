@@ -38,6 +38,12 @@ public class UserController {
     public User saveUser(@RequestBody UserDto user){
         return userService.save(user);
     }
+    
+
+    @RequestMapping(value="/listAllUser", method = RequestMethod.GET)
+    public List<User> listAllUser(){
+        return userService.findAll();
+    }
 
 
 
