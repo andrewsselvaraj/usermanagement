@@ -8,7 +8,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.efreelearn.dao.RoleDao;
 import com.efreelearn.dao.UserDao;
+import com.efreelearn.model.Role;
 import com.efreelearn.model.User;
 import com.efreelearn.model.UserDto;
 import com.efreelearn.service.UserService;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private RoleDao roleDao;
 
 	@Autowired
 	private BCryptPasswordEncoder bcryptEncoder;
@@ -71,6 +76,26 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	    newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 	    newUser.setPrimaryskill(user.getPrimaryskill());
 	   // newUser.setUsername(username);
+		   Long longid = null;
+
+		   System.out.println(" user.getUsertype()"+user.getUsertype());
+	    if(user.getUsertype() !=null && user.getUsertype().equalsIgnoreCase("admin"))
+	    {
+	    	longid = new Long(1).longValue();
+	    }
+	    else
+	    {
+	    	longid = new Long(2).longValue();
+	    }
+	    Set<Role> roles = new HashSet<Role>();
+	    Role r = new Role();
+ System.out.println("   user.getROLE_ID() "+user.getROLE_ID());
+	    	
+	   
+	    r.setId(longid);
+	  r=  roleDao.findById(longid).get();
+	    roles.add(r);
+	    newUser.setRoles(roles);
 		
         return userDao.save(newUser);
     }
