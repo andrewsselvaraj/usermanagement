@@ -33,4 +33,20 @@ public class RoleServiceImpl implements  RoleService {
 	}
 
 
+
+	@Override
+	public void delete(long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public User findOne(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }
