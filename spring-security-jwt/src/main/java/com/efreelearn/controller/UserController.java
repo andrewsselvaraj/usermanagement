@@ -48,6 +48,12 @@ public class UserController {
     public List<User> listAllUser(){
         return userService.findAll();
     }
+    
+
+    @RequestMapping(value = "/getuser/{id}", method = RequestMethod.GET)
+    public User getOneUser(@PathVariable(value = "id") Long id){
+        return userService.findById(id);
+    }
 
 
 
